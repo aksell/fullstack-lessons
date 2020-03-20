@@ -15,9 +15,9 @@
   </head>
   <body>
     <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
+      {% for item in data %}
+      <li>{{item.description}}</li>
+      {% endfor %}
     </ul>
   </body>
 </html>
