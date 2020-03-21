@@ -1,6 +1,23 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgres://postgres:postgres@localhost:5432/todoapp"  # dblang://user:pswd@ip:port/database
+
+db = SQLAlchemy(app)
+
+
+class TodoItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String, nullable=False)
+
+    def __repr__(self):
+        return f"id: {self.id} description: {self.description}"
+
+
+db.create_all()
 
 
 @app.route("/")
