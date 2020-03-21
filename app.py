@@ -30,3 +30,4 @@ def index():
             {"description": "Flush the toilet"},
         ],
     )
+    return render_template("index.html", data=TodoItem.query.all())
