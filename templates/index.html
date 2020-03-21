@@ -19,5 +19,9 @@
       <li>{{item.description}}</li>
       {% endfor %}
     </ul>
+    <form method="POST" action="/todo/create">
+      <input type="text" name="description" />
+      <input type="submit" value="Create" />
+    </form>
   </body>
 </html>

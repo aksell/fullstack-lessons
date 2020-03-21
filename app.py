@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -22,12 +22,11 @@ db.create_all()
 
 @app.route("/")
 def index():
-    return render_template(
-        "index.html",
-        data=[
-            {"description": "Fix the sink"},
-            {"description": "Walk the dog"},
-            {"description": "Flush the toilet"},
-        ],
-    )
     return render_template("index.html", data=TodoItem.query.all())
+
+
+@app.route("/todo/create", methods=["POST"])
+def handle_create_todo():
+    db.session.add(TodoItem(description=request.form["description"]))
+    db.session.commit()
+    return index()
