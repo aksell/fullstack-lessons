@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -29,4 +29,4 @@ def index():
 def handle_create_todo():
     db.session.add(TodoItem(description=request.form["description"]))
     db.session.commit()
-    return index()
+    return redirect(url_for("index"))  # name of method we want to redirec to
