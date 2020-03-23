@@ -29,12 +29,13 @@
       <input type="submit" value="Create" />
     </form>
     <script>
+      const descInput = document.getElementById("description");
       document.getElementById("form").onsubmit = function(e) {
         e.preventDefault(); // block normal submit
         fetch("/todo/create", {
           method: "POST",
           body: JSON.stringify({
-            description: document.getElementById("description").value
+            description: descInput.value
           }),
           headers: {
             "Content-Type": "application/json"
