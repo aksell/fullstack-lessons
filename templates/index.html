@@ -45,7 +45,6 @@
             console.log("Response!:", jsonResponse);
             li = document.createElement("LI");
             li.innerText = jsonResponse["description"];
-            console.log(li.innerText);
             document.getElementById("todos").appendChild(li);
             document.getElementById("error").className = "hidden"; // hide error on faulty response
           })
