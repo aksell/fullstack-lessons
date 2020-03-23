@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -37,6 +37,10 @@ def handle_create_todo():
         error = True
         db.session.rollback()
     finally:
-        if not error:  # Should not use todo item after closing the session
+        if error:
+            abort(
+                400
+            )  # Route handlers should always return something or raise an exception never stay silent
+        else:  # Should not use todo item after closing because it would not be attached to a session
             return jsonify({"description": todo.description})
         db.session.close()
