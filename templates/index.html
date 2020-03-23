@@ -1,8 +1,6 @@
 <html>
   <head>
     <title>TODO app</title>
-    <div id="error" class="hidden">Something went wrong</div>
-    <!-- We hide this by deaulf, therefore it is hidden, we show it when a error occurs.-->
     <style>
       .hidden {
         display: none;
@@ -19,6 +17,8 @@
     </style>
   </head>
   <body>
+    <div id="error" class="hidden">Something went wrong</div>
+    <!-- We hide this by deaulf, therefore it is hidden, we show it when a error occurs.-->
     <ul id="todos">
       {% for item in data %}
       <li>{{item.description}}</li>
