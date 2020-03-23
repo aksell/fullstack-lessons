@@ -43,6 +43,7 @@
         })
           .then(response => response.json())
           .then(jsonResponse => {
+            descInput.value = ""; // clear input field on response
             console.log("Response!:", jsonResponse);
             li = document.createElement("LI");
             li.innerText = jsonResponse["description"];
