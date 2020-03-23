@@ -40,10 +40,8 @@
             "Content-Type": "application/json"
           }
         })
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(jsonResponse) {
+          .then(response => response.json())
+          .then(jsonResponse => {
             console.log("Response!:", jsonResponse);
             li = document.createElement("LI");
             li.innerText = jsonResponse["description"];
