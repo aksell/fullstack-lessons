@@ -29,6 +29,14 @@ def index():
 def handle_create_todo():
     description = request.get_json()["description"]
     todo = TodoItem(description=description)
-    db.session.add(todo)
-    db.session.commit()
-    return jsonify({"description": todo.description})
+    error = False
+    try:
+        db.session.add(todo)
+        db.session.commit()
+    except:
+        error = True
+        db.session.rollback()
+    finally:
+        if not error:  # Should not use todo item after closing the session
+            return jsonify({"description": todo.description})
+        db.session.close()
