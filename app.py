@@ -23,7 +23,7 @@ class TodoItem(db.Model):
 
 @app.route("/")
 def index():
-    return render_template("index.html", data=TodoItem.query.all())
+    return render_template("index.html", data=TodoItem.query.order_by("id").all())
 
 
 @app.route("/todo/create", methods=["POST"])
