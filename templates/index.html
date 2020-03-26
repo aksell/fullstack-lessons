@@ -14,6 +14,11 @@
       p {
         color: rebeccapurple;
       }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -21,7 +26,21 @@
     <!-- We hide this by deaulf, therefore it is hidden, we show it when a error occurs.-->
     <ul id="todos">
       {% for item in data %}
-      <li>{{item.description}}</li>
+      <li>
+        <input
+          class="check-completed"
+          type="checkbox"
+          data-id="{{item.id}}"
+          {%if
+          item.completed%}
+          checked
+          {%
+          endif
+          %}
+        />
+        {{item.description}}
+      </li>
+      <!--What does the item.id field set? this for?-->
       {% endfor %}
     </ul>
     <form id="form">
