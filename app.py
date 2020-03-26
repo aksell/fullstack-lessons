@@ -45,3 +45,17 @@ def handle_create_todo():
         else:  # Should not use todo item after closing because it would not be attached to a session
             return jsonify({"description": todo.description})
         db.session.close()
+
+
+@app.route("/todo/<todo_id>/update-checked", methods=["POST"])
+def handle_checked_update(todo_id):
+    try:
+        checked = request.get_json()["completed"]
+        item = TodoItem.query.get(todo_id)
+        item.completed = True
+        db.session.commit()
+    except:
+        abort(400)
+    finally:
+        db.session.close()
+    return redirect(url_for("index"))
