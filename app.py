@@ -44,15 +44,20 @@ def handle_create_todo():
             )  # Route handlers should always return something or raise an exception never stay silent
         else:  # Should not use todo item after closing because it would not be attached to a session
             return jsonify({"description": todo.description})
-        db.session.close()
+        db.session.close()  # Is this ever executed?
 
 
 @app.route("/todo/<todo_id>/delete", methods=["DELETE"])
 def delete_todo(todo_id):
-    item = TodoItem.query.get(todo_id)
-    db.session.delete(item)
-    db.session.commit()
-    return jsonify({"id": todo_id})
+    try:
+        item = TodoItem.query.get(todo_id)
+        db.session.delete(item)
+        db.session.commit()
+    except:
+        db.session.rollback()
+    finally:
+        db.session.close()
+        return jsonify({"id": todo_id})
 
 
 @app.route("/todo/<todo_id>/update-checked", methods=["POST"])
