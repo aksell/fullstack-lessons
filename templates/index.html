@@ -57,13 +57,6 @@
       <input type="submit" value="Create" />
     </form>
     <script>
-      const deleteboxes = document.querySelectorAll(".delete-item");
-      for (let i = 0; i < deleteboxes.length; i++) {
-        const deletebox = deleteboxes[i];
-        deletebox.onchange = function(e) {
-          console.log("event", e);
-        };
-      }
       const checkboxes = document.querySelectorAll(".check-completed");
       for (let i = 0; i < checkboxes.length; i++) {
         const checkbox = checkboxes[i];
@@ -98,12 +91,13 @@
           .then(jsonResponse => {
             descInput.value = ""; // clear input field on response
             console.log("Response!:", jsonResponse);
-            li = document.createElement("LI");
-            input = document.createElement("input");
-            inp.type = "checkbox";
-            li.prepend(input);
-            li.innerText = jsonResponse["description"];
-            document.getElementById("todos").appendChild(li);
+            liItem = document.createElement("LI");
+            inputThing = document.createElement("input");
+            inputThing.type = "checkbox";
+            console.log("Trying to append child!", inputThing);
+            liItem.prepend(inputThing);
+            liItem.innerHTML = jsonResponse["description"];
+            document.getElementById("todos").appendChild(liItem);
             document.getElementById("error").className = "hidden"; // hide error on faulty response
           })
           .catch(function() {
