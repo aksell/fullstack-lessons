@@ -47,6 +47,14 @@ def handle_create_todo():
         db.session.close()
 
 
+@app.route("/todo/<todo_id>/delete", methods=["DELETE"])
+def delete_todo(todo_id):
+    item = TodoItem.query.get(todo_id)
+    db.session.delete(item)
+    db.session.commit()
+    return jsonify({"id": todo_id})
+
+
 @app.route("/todo/<todo_id>/update-checked", methods=["POST"])
 def handle_checked_update(todo_id):
     try:

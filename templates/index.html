@@ -47,7 +47,13 @@
           %}
         />
         {{item.description}}
-        <button class="delete-item">&times;</button>
+        <button
+          type="deleteButton"
+          data-id="{{item.id}}"
+          onclick="deleteItem(this)"
+        >
+          &times;
+        </button>
       </li>
       <!--What does the data.id field set? this for? It sets a porperty on the event Target.dataset equal to ID that we can get later-->
       {% endfor %}
@@ -57,6 +63,18 @@
       <input type="submit" value="Create" />
     </form>
     <script>
+      function deleteItem(buttonClicked) {
+        const todoId = buttonClicked.dataset["id"];
+        console.log("button cliked:", buttonClicked.dataset["id"]);
+        fetch("/todo/" + todoId + "/delete", {
+          method: "DELETE"
+        })
+          .then(response => response.json())
+          .then(jsonResponse => {
+            todoItem = document.getElementById("deleteButton");
+            console.log(jsonResponse["id"]);
+          });
+      }
       const checkboxes = document.querySelectorAll(".check-completed");
       for (let i = 0; i < checkboxes.length; i++) {
         const checkbox = checkboxes[i];
