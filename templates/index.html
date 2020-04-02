@@ -18,6 +18,14 @@
         list-style: none;
         padding: 0;
         margin: 0;
+        width: 220px;
+      }
+      li button {
+        all: unset;
+        color: red;
+        float: right;
+        cursor: pointer;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -39,8 +47,9 @@
           %}
         />
         {{item.description}}
+        <button class="delete-item">&times;</button>
       </li>
-      <!--What does the item.id field set? this for?-->
+      <!--What does the data.id field set? this for? It sets a porperty on the event Target.dataset equal to ID that we can get later-->
       {% endfor %}
     </ul>
     <form id="form">
@@ -48,6 +57,13 @@
       <input type="submit" value="Create" />
     </form>
     <script>
+      const deleteboxes = document.querySelectorAll(".delete-item");
+      for (let i = 0; i < deleteboxes.length; i++) {
+        const deletebox = deleteboxes[i];
+        deletebox.onchange = function(e) {
+          console.log("event", e);
+        };
+      }
       const checkboxes = document.querySelectorAll(".check-completed");
       for (let i = 0; i < checkboxes.length; i++) {
         const checkbox = checkboxes[i];
