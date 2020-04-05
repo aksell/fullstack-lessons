@@ -37,42 +37,44 @@
   <body>
     <div id="error" class="hidden">Something went wrong</div>
     <!-- We hide this by deaulf, therefore it is hidden, we show it when a error occurs.-->
-    <ul id="todos">
-      {% for item in data %}
-      <li>
-        <input
-          class="check-completed"
-          type="checkbox"
-          data-id="{{item.id}}"
-          {%if
-          item.completed%}
-          checked
-          {%
-          endif
-          %}
-        />
-        {{item.description}}
-        <button
-          type="deleteButton"
-          data-id="{{item.id}}"
-          onclick="deleteItem(this)"
-        >
-          &times;
-        </button>
-      </li>
-      <!--What does the data.id field set? this for? It sets a porperty on the event Target.dataset equal to ID that we can get later-->
-      {% endfor %}
-    </ul>
-    <form id="form">
-      <input type="text" id="description" name="description" />
-      <input type="submit" value="Create" />
-    </form>
     <div class="lists-wrapper">
       <ul id="lists">
         {% for list in lists %}
         <li>{{list.name}}</li>
         {% endfor %}
       </ul>
+    </div>
+    <div class="todos-wrapper">
+      <ul id="todos">
+        {% for item in todos %}
+        <li>
+          <input
+            class="check-completed"
+            type="checkbox"
+            data-id="{{item.id}}"
+            {%if
+            item.completed%}
+            checked
+            {%
+            endif
+            %}
+          />
+          {{item.description}}
+          <button
+            type="deleteButton"
+            data-id="{{item.id}}"
+            onclick="deleteItem(this)"
+          >
+            &times;
+          </button>
+        </li>
+        <!--What does the data.id field set? this for? It sets a porperty on the event Target.dataset equal to ID that we can get later-->
+        {% endfor %}
+      </ul>
+      <form id="form">
+        <input type="text" id="description" name="description" />
+        <input type="submit" value="Create" />
+      </form>
     </div>
     <script>
       function deleteItem(buttonClicked) {
